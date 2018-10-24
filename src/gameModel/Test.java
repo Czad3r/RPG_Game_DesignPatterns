@@ -5,5 +5,7 @@ public class Test {
         Knight mójKnight=new Knight.KnightBuilder("Czader").build();
         System.out.println( mójKnight.toString());
 
+
+
     }
 }
