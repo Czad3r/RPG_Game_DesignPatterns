@@ -1,6 +1,13 @@
 package gameModel;
 
-public interface Skill {
-    public String getName();
+public abstract class Skill {
+    String name;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
