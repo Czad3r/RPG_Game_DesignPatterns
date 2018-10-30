@@ -6,6 +6,7 @@ public class Healer extends HeroAbstract {
 
     private Healer(HealerBuilder builder) {
         if (builder == null) return;
+        weapon=builder.weapon;
         healthPoints = builder.healthPoints;
         attackPoints = builder.attackPoints;
         armorPoints = builder.armorPoints;
@@ -16,16 +17,7 @@ public class Healer extends HeroAbstract {
 
     @Override
     public String toString() {
-        return "Healer{" +
-                "healthPoints=" + healthPoints +
-                ", attackPoints=" + attackPoints +
-                ", armorPoints=" + armorPoints +
-                ", armorPenetrationPoints=" + armorPenetrationPoints +
-                ", magicMultiplier=" + magicMultiplier +
-                ", healingPoints=" + healingPoints +
-                ", name='" + name + '\'' +
-                ", icon=" + icon +
-                '}';
+        return "Healer"+super.toString();
     }
 
     public static class HealerBuilder extends Builder{
