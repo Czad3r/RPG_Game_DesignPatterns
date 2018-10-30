@@ -10,6 +10,7 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
+
         while(true){
             //Coś robi
             Instances.player.update();
@@ -17,4 +18,5 @@ public class Game implements Runnable {
             try {Thread.sleep(10);} catch (InterruptedException e) {e.printStackTrace();}
         }
     }
+
 }

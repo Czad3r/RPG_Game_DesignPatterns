@@ -20,6 +20,25 @@ public class Draw {
     private int WIDTH = 640;
     private int HEIGHT = 480;
 
+    private int CHARACTER_WIDTH=15;
+    private int CHARACTER_HEIGHT=15;
+
+    public int getCHARACTER_WIDTH() {
+        return CHARACTER_WIDTH;
+    }
+
+    public int getCHARACTER_HEIGHT() {
+        return CHARACTER_HEIGHT;
+    }
+
+    public int getWIDTH() {
+        return WIDTH;
+    }
+
+    public int getHEIGHT() {
+        return HEIGHT;
+    }
+
     public Draw(){
         frame = new JFrame("RPG_GAME_DesignPatterns");
         JPanel panel = (JPanel) frame.getContentPane();
@@ -52,7 +71,7 @@ public class Draw {
     }
     protected void render(Graphics2D g){
         g.setColor(Color.white);
-        g.fillRect(Instances.player.getX(), Instances.player.getY(), 15, 15);
+        g.fillRect(Instances.player.getX(), Instances.player.getY(), CHARACTER_WIDTH, CHARACTER_HEIGHT);
     }
 }
 

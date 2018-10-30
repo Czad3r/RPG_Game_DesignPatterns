@@ -1,5 +1,7 @@
 package gameModel;
 
+import gameController.Instances;
+
 import javax.swing.*;
 
 public abstract class HeroAbstract {
@@ -12,7 +14,7 @@ public abstract class HeroAbstract {
 
     //Sekcja ruchu
     int x, y;
-    boolean  left, right, up, down;
+    boolean left, right, up, down;
 
     String name;
     Icon icon;
@@ -118,7 +120,7 @@ public abstract class HeroAbstract {
 
     @Override
     public String toString() {
-        return  "{" +
+        return "{" +
                 "healthPoints=" + healthPoints +
                 ", attackPoints=" + attackPoints +
                 ", armorPoints=" + armorPoints +
@@ -132,20 +134,36 @@ public abstract class HeroAbstract {
     }
 
     public void update() {
+        canMove();
         move();
     }
 
-    public void move(){ //Należy uwzględnić przypadki wyjścia poza mapę
-        if(left){
+    public void move() {
+        if (left) {
             x--;
-        }if(right){
+        }
+        if (right) {
             x++;
-        }if(up){
+        }
+        if (up) {
             y--;
-        }if(down){
+        }
+        if (down) {
             y++;
         }
     }
+
+    public void canMove() {
+        if ((Instances.drawing.getWIDTH() - Instances.drawing.getCHARACTER_WIDTH()) < Instances.player.getX() + 1)
+            right = false; //Right side
+        if ((Instances.drawing.getHEIGHT() - Instances.drawing.getCHARACTER_HEIGHT()) < Instances.player.getY() + 1)
+            down = false;//Down side
+        if ((Instances.player.getX() - 1) < 0)
+            left = false;//Left side
+        if ((Instances.player.getY() - 1) < 0)
+            up = false; //Up side
+    }
+
 
     public static abstract class Builder {
         int healthPoints;
@@ -169,8 +187,8 @@ public abstract class HeroAbstract {
             return this;
         }
 
-        public Builder weapon(WeaponAbstract weapon){
-            this.weapon=weapon;
+        public Builder weapon(WeaponAbstract weapon) {
+            this.weapon = weapon;
             return this;
         }
 
@@ -204,9 +222,9 @@ public abstract class HeroAbstract {
             return this;
         }
 
-        public Builder magicMultiplier(int magic){
-            if(magic>0)magicMultiplier=magic;
-            else magicMultiplier=0;
+        public Builder magicMultiplier(int magic) {
+            if (magic > 0) magicMultiplier = magic;
+            else magicMultiplier = 0;
             return this;
         }
 
