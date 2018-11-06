@@ -1,5 +1,5 @@
-# Compiled class file
-*.class
+#Production directory
+out/*
 
 # Log file
 *.log
