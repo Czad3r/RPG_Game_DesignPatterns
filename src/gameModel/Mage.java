@@ -9,6 +9,7 @@ public class Mage extends HeroAbstract {
         if (builder == null) {
             return;
         }
+        weapon=builder.weapon;
         healthPoints = builder.healthPoints;
         attackPoints = builder.attackPoints;
         armorPoints = builder.armorPoints;
@@ -20,16 +21,7 @@ public class Mage extends HeroAbstract {
 
     @Override
     public String toString() {
-        return "Mage{" +
-                "healthPoints=" + healthPoints +
-                ", attackPoints=" + attackPoints +
-                ", armorPoints=" + armorPoints +
-                ", armorPenetrationPoints=" + armorPenetrationPoints +
-                ", magicMultiplier=" + magicMultiplier +
-                ", healingPoints=" + healingPoints +
-                ", name='" + name + '\'' +
-                ", icon=" + icon +
-                '}';
+        return "Mage"+super.toString();
     }
 
     public static class MageBuilder extends Builder {

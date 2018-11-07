@@ -9,6 +9,7 @@ public class Knight extends HeroAbstract {
         if (builder == null) {
             return;
         }
+        weapon=builder.weapon;
         healthPoints = builder.healthPoints;
         attackPoints = builder.attackPoints;
         armorPoints = builder.armorPoints;
@@ -19,16 +20,7 @@ public class Knight extends HeroAbstract {
 
     @Override
     public String toString() {
-        return "Knight{" +
-                "healthPoints=" + healthPoints +
-                ", attackPoints=" + attackPoints +
-                ", armorPoints=" + armorPoints +
-                ", armorPenetrationPoints=" + armorPenetrationPoints +
-                ", magicMultiplier=" + magicMultiplier +
-                ", healingPoints=" + healingPoints +
-                ", name='" + name + '\'' +
-                ", icon=" + icon +
-                '}';
+        return "Knight"+super.toString();
     }
 
     public static class KnightBuilder extends Builder {

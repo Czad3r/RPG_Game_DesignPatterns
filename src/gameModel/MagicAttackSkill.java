@@ -29,6 +29,9 @@ public class MagicAttackSkill extends Skill {
             if(attack>0)attackMultiplier=attack;
             return this;
         }
+        public MagicAttackSkill build(){
+            return new MagicAttackSkill(this);
+        }
     }
 
 
