@@ -2,6 +2,7 @@ package gameView;
 
 import gameController.ButtonHandler;
 import gameController.Instances;
+import gameController.State;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -74,7 +75,8 @@ public class Draw {
         g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);//Clearing screen
 
-        rendering(); //Start drawing
+        //rendering(); //Start drawing
+        if (State.getCurrentState() != null) State.getCurrentState().render(g);
 
         g.dispose();
         bufferStrategy.show();
