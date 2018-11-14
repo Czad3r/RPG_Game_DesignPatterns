@@ -16,6 +16,9 @@ public class Game implements Runnable {
     private State gameState;
     private State menuState;
 
+    //Inputs
+    private ButtonHandler buttonHandler;;
+
     private boolean running = false;
 
     private int fps = 60;
@@ -53,18 +56,26 @@ public class Game implements Runnable {
     }
 
     private void tick() {
+
         if (State.getCurrentState() != null) State.getCurrentState().tick();
     }
 
     private void render() {
+
         drawing.render();
+    }
+
+    public ButtonHandler getButtonHandler() {
+        return buttonHandler;
     }
 
     private void init() {
         Assets.init();
+        buttonHandler=new ButtonHandler();
         drawing = new Draw();
-        gameState = new GameState();
-        menuState = new MenuState();
+        drawing.getFrame().addKeyListener(buttonHandler);
+        gameState = new GameState(this);
+        menuState = new MenuState(this);
         State.setCurrentState(gameState);
     }
 

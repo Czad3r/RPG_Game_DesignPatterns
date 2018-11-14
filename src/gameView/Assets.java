@@ -17,7 +17,7 @@ public class Assets {
         shopSign = sheet.crop(5 * width, 3 * height, width, height);
         bedSign = sheet.crop(8 * width, 3 * height, width, height);
         tree = sheet.crop(0, height, width, height);
-        //player=sheet.crop(15*width,1*height,width,height);
+        player=sheet.crop(15*width,1*height,width,height);
 
 
     }

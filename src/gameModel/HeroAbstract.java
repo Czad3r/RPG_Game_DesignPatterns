@@ -1,18 +1,25 @@
 package gameModel;
 
 import gameController.Instances;
+import gameView.Assets;
 
-import javax.swing.*;
+import java.awt.*;
 
-public abstract class HeroAbstract extends creature{
-    int magicMultiplier;
-    int healingPoints;
+import static gameController.Instances.game;
 
-    //Sekcja ruchu
+public abstract class HeroAbstract extends Creature {
+    protected int magicMultiplier;
+    protected int healingPoints;
+    protected WeaponAbstract weapon;
 
-    boolean left, right, up, down;
+    public static final int DEFAULT_MAGIC=1;
+    public static final int DEFAULT_HEALING=0;
 
-    WeaponAbstract weapon;
+    public HeroAbstract(float x, float y) {
+        super(x, y);
+        magicMultiplier=DEFAULT_MAGIC;
+        healingPoints=DEFAULT_HEALING;
+    }
 
     public WeaponAbstract getWeapon() {
         return weapon;
@@ -22,21 +29,6 @@ public abstract class HeroAbstract extends creature{
         this.weapon = weapon;
     }
 
-    public void setLeft(boolean left) {
-        this.left = left;
-    }
-
-    public void setRight(boolean right) {
-        this.right = right;
-    }
-
-    public void setUp(boolean up) {
-        this.up = up;
-    }
-
-    public void setDown(boolean down) {
-        this.down = down;
-    }
 
     public int getMagicMultiplier() {
         return magicMultiplier;
@@ -65,8 +57,15 @@ public abstract class HeroAbstract extends creature{
                 ", healingPoints=" + healingPoints +
                 ", weapon=" + weapon +
                 ", name='" + name + '\'' +
-                ", icon=" + icon +
                 '}';
+    }
+    @Override
+    public void render(Graphics g) {
+        g.drawImage(Assets.player,(int)x,(int)y,width,height,null);
+    }
+    @Override
+    public void tick() {
+        update(); //Checking borders of map, and then moving
     }
 
     public void update() {
@@ -75,33 +74,33 @@ public abstract class HeroAbstract extends creature{
     }
 
     public void move() {
-        if (left) {
+        if (game.getButtonHandler().left) {
             x--;
         }
-        if (right) {
+        if (game.getButtonHandler().right) {
             x++;
         }
-        if (up) {
+        if (game.getButtonHandler().up) {
             y--;
         }
-        if (down) {
+        if (game.getButtonHandler().down) {
             y++;
         }
     }
 
     public void canMove() {
         if ((Instances.drawing.getWIDTH() - Instances.drawing.getCHARACTER_WIDTH()) < Instances.player.getX() + 1)
-            right = false; //Right side
+            game.getButtonHandler().right = false; //Right side
         if ((Instances.drawing.getHEIGHT() - Instances.drawing.getCHARACTER_HEIGHT()) < Instances.player.getY() + 1)
-            down = false;//Down side
+            game.getButtonHandler().down = false;//Down side
         if ((Instances.player.getX() - 1) < 0)
-            left = false;//Left side
+            game.getButtonHandler().left = false;//Left side
         if ((Instances.player.getY() - 1) < 0)
-            up = false; //Up side
+            game.getButtonHandler().up = false; //Up side
     }
 
 
-    public static abstract class Builder extends creature.Builder {
+    public static abstract class Builder extends Creature.Builder {
         int magicMultiplier;
         int healingPoints;
 
@@ -118,13 +117,13 @@ public abstract class HeroAbstract extends creature{
 
         public Builder healingPoints(int heal) {
             if (heal > 0) healingPoints = heal;
-            else heal = 0;
+            else heal = DEFAULT_HEALING;
             return this;
         }
 
         public Builder magicMultiplier(int magic) {
             if (magic > 0) magicMultiplier = magic;
-            else magicMultiplier = 0;
+            else magicMultiplier = DEFAULT_MAGIC;
             return this;
         }
 
