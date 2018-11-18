@@ -4,20 +4,24 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class ButtonHandler extends KeyAdapter {
+
+    public boolean left, right, up, down;
+
+
     public void keyPressed(KeyEvent key) {
 
         switch (key.getKeyCode()) {
             case KeyEvent.VK_UP:
-                Instances.player.setUp(true);
+                up=true;
                 break;
             case KeyEvent.VK_DOWN:
-                Instances.player.setDown(true);
+                down=true;
                 break;
             case KeyEvent.VK_LEFT:
-                Instances.player.setLeft(true);
+                left=true;
                 break;
             case KeyEvent.VK_RIGHT:
-                Instances.player.setRight(true);
+                right=true;
                 break;
         }
     }
@@ -25,16 +29,16 @@ public class ButtonHandler extends KeyAdapter {
     public void keyReleased(KeyEvent key) {
         switch (key.getKeyCode()) {
             case KeyEvent.VK_UP:
-                Instances.player.setUp(false);
+                up=false;
                 break;
             case KeyEvent.VK_DOWN:
-                Instances.player.setDown(false);
+                down=false;
                 break;
             case KeyEvent.VK_LEFT:
-                Instances.player.setLeft(false);
+                left=false;
                 break;
             case KeyEvent.VK_RIGHT:
-                Instances.player.setRight(false);
+                right=false;
                 break;
         }
     }
