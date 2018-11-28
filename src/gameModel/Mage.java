@@ -1,5 +1,7 @@
 package gameModel;
 
+import gameController.Instances;
+
 import java.awt.*;
 
 public class Mage extends HeroAbstract {
@@ -13,6 +15,10 @@ public class Mage extends HeroAbstract {
         if (builder == null) {
             return;
         }
+        x=builder.x;
+        y=builder.y;
+        width=builder.width;
+        height=builder.height;
         weapon=builder.weapon;
         healthPoints = builder.healthPoints;
         attackPoints = builder.attackPoints;

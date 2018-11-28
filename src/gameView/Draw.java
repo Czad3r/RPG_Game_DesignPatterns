@@ -83,17 +83,12 @@ public class Draw {
         g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);//Clearing screen
 
-        //rendering(); //Start drawing
         if (State.getCurrentState() != null) State.getCurrentState().render(g);
 
         g.dispose();
         bufferStrategy.show();
     }
-    protected void rendering(){
 
-        g.setColor(Color.white);
-        //g.fillRect(Instances.player.getX(), Instances.player.getY(), CHARACTER_WIDTH, CHARACTER_HEIGHT);
-    }
 
 }
 

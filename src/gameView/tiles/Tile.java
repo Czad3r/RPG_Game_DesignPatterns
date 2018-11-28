@@ -13,6 +13,10 @@ public class Tile {
     public static Tile shopSignTile=new ShopSignTile(4);
     public static Tile bedSignTile=new BedSignTile(5);
     public static Tile treeTile=new TreeTile(6);
+    public static Tile brickWallTile=new WoodWallWindowTile(7);
+    public static Tile arenaWallTile=new ArenaWallTile(8);
+    public static Tile monumentTile=new MonumentTile(9);
+
 
 
     public static final int TILEWIDTH=32, TILEHEIGHT=32;

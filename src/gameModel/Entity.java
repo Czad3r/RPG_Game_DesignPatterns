@@ -1,8 +1,11 @@
 package gameModel;
 
+import gameController.Game;
+
 import java.awt.*;
 
 public abstract class Entity {
+    protected Game game;
     protected float x, y;
     protected int width, height;
 
@@ -14,9 +17,12 @@ public abstract class Entity {
         return height;
     }
 
-    public Entity(float x, float y) {
+    public Entity(Game game, float x, float y,int width,int height) {
         this.x = x;
         this.y = y;
+        this.width=width;
+        this.height=height;
+        this.game=game;
     }
 
     public float getX() {
@@ -59,13 +65,13 @@ public abstract class Entity {
 
         public Builder width(int width) {
             if (width > 0) this.width=width;
-            else width= 1;
+            else width= 32;
             return this;
         }
 
         public Builder height(int height) {
             if (height> 0) this.height=height;
-            else height= 1;
+            else height= 32;
             return this;
         }
 

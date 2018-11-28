@@ -1,7 +1,9 @@
 package gameModel;
 
+import gameController.Game;
 import gameController.Instances;
 import gameView.Assets;
+import gameView.World;
 
 import java.awt.*;
 
@@ -12,13 +14,13 @@ public abstract class HeroAbstract extends Creature {
     protected int healingPoints;
     protected WeaponAbstract weapon;
 
-    public static final int DEFAULT_MAGIC=1;
-    public static final int DEFAULT_HEALING=0;
+    public static final int DEFAULT_MAGIC = 1;
+    public static final int DEFAULT_HEALING = 0;
 
     public HeroAbstract(float x, float y) {
         super(x, y);
-        magicMultiplier=DEFAULT_MAGIC;
-        healingPoints=DEFAULT_HEALING;
+        magicMultiplier = DEFAULT_MAGIC;
+        healingPoints = DEFAULT_HEALING;
     }
 
     public WeaponAbstract getWeapon() {
@@ -59,13 +61,17 @@ public abstract class HeroAbstract extends Creature {
                 ", name='" + name + '\'' +
                 '}';
     }
+
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.player,(int)x,(int)y,width,height,null);
+        g.drawImage(Assets.player, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
     }
+
     @Override
     public void tick() {
+
         update(); //Checking borders of map, and then moving
+        game.getGameCamera().centerOnEntity(this);
     }
 
     public void update() {
@@ -89,9 +95,11 @@ public abstract class HeroAbstract extends Creature {
     }
 
     public void canMove() {
-        if ((Instances.drawing.getWIDTH() - Instances.drawing.getCHARACTER_WIDTH()) < Instances.player.getX() + 1)
+        float xOffSet = game.getGameCamera().getxOffset();
+        float yOffset = game.getGameCamera().getyOffset();
+        if ((World.getWidth() * Assets.getWidth() - Instances.drawing.getCHARACTER_WIDTH())  < Instances.player.getX() + 1)
             game.getButtonHandler().right = false; //Right side
-        if ((Instances.drawing.getHEIGHT() - Instances.drawing.getCHARACTER_HEIGHT()) < Instances.player.getY() + 1)
+        if ((World.getHeight() * Assets.getHeight() - Instances.drawing.getCHARACTER_HEIGHT())  < Instances.player.getY() + 1)
             game.getButtonHandler().down = false;//Down side
         if ((Instances.player.getX() - 1) < 0)
             game.getButtonHandler().left = false;//Left side

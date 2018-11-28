@@ -17,6 +17,10 @@ public class Knight extends HeroAbstract {
         if (builder == null) {
             return;
         }
+        x=builder.x;
+        y=builder.y;
+        //width=builder.width;
+        //height=builder.height;
         weapon = builder.weapon;
         healthPoints = builder.healthPoints;
         attackPoints = builder.attackPoints;

@@ -1,7 +1,10 @@
 package gameController;
 
+import gameModel.HeroAbstract;
+import gameModel.Knight;
 import gameView.Assets;
 import gameView.Draw;
+import gameView.GameCamera;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +14,8 @@ import static gameController.Instances.drawing;
 public class Game implements Runnable {
 
     private Thread thread;
+
+    private GameCamera gameCamera;
 
     //States
     private State gameState;
@@ -72,12 +77,21 @@ public class Game implements Runnable {
     private void init() {
         Assets.init();
         buttonHandler=new ButtonHandler();
+        Instances.player=(HeroAbstract) new Knight.KnightBuilder("Czader").attackPoints(5).x(5*Assets.getWidth()).y(5*Assets.getHeight()).build();
         drawing = new Draw();
         drawing.getFrame().addKeyListener(buttonHandler);
+
+
+        gameCamera=new GameCamera(0,0);
+
         gameState = new GameState(this);
         menuState = new MenuState(this);
+
+
         State.setCurrentState(gameState);
     }
+
+    public GameCamera getGameCamera() { return gameCamera; }
 
     public synchronized void start() {
         if (running) return;

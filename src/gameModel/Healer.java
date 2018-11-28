@@ -9,6 +9,10 @@ public class Healer extends HeroAbstract {
     private Healer(HealerBuilder builder) {
         super(0,0);
         if (builder == null) return;
+        x=builder.x;
+        y=builder.y;
+        width=builder.width;
+        height=builder.height;
         weapon=builder.weapon;
         healthPoints = builder.healthPoints;
         attackPoints = builder.attackPoints;

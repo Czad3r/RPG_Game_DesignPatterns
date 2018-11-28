@@ -1,17 +1,22 @@
 package gameView;
 
+import gameController.Game;
+import gameController.Instances;
 import gameController.Utils;
 import gameView.tiles.Tile;
 
 import java.awt.*;
 
 public class World {
-    private int width, height;
-    private int startX,startY;
+    private Game game;
+
+    private static int width, height;
+    private int startX, startY;
     private int[][] tiles;
 
     public World(String path) {
         loadWorld(path);
+        this.game = Instances.game;
     }
 
     public void tick() {
@@ -21,7 +26,8 @@ public class World {
     public void render(Graphics g) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                getTile(x, y).render(g, Tile.TILEWIDTH * x, Tile.TILEHEIGHT * y);
+                getTile(x, y).render(g, (int) (Tile.TILEWIDTH * x - game.getGameCamera().getxOffset()),
+                                        (int) (Tile.TILEHEIGHT * y - game.getGameCamera().getyOffset()));
             }
         }
     }
@@ -33,18 +39,26 @@ public class World {
     }
 
     private void loadWorld(String path) {
-        String file= Utils.loadFileAsString(path);
-        String[] tokens =file.split("\\s+");
-        width=Utils.parseInt(tokens[0]);
-        height=Utils.parseInt(tokens[1]);
-        startX=Utils.parseInt(tokens[2]);
-        startY=Utils.parseInt(tokens[3]);
+        String file = Utils.loadFileAsString(path);
+        String[] tokens = file.split("\\s+");
+        width = Utils.parseInt(tokens[0]);
+        height = Utils.parseInt(tokens[1]);
+        startX = (int)Instances.player.getX();
+        startY = (int)Instances.player.getY();
 
-        tiles=new int[width][height];
-        for (int y=0;y<height;y++){
-            for (int x=0;x<width;x++){
-                tiles[x][y]=Utils.parseInt(tokens[4 + (x+y*width)]); //Why?
+        tiles = new int[width][height];
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                tiles[x][y] = Utils.parseInt(tokens[2 + (x + y * width)]); //Why?
             }
         }
+    }
+
+    public static int getWidth() {
+        return width;
+    }
+
+    public static int getHeight() {
+        return height;
     }
 }

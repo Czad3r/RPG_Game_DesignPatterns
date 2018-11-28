@@ -1,5 +1,8 @@
 package gameModel;
 
+import gameController.Game;
+import gameController.Instances;
+
 import javax.swing.*;
 
 public abstract class Creature extends Entity {
@@ -18,7 +21,7 @@ public abstract class Creature extends Entity {
     protected String name;
 
     public Creature(float x, float y) {
-        super(x, y);
+        super(Instances.game,x, y,DEFAULT_CREATURE_WIDTH,DEFAULT_CREATURE_HEIGHT);
         healthPoints = DEFAULT_HEALTH;
         attackPoints = DEFAULT_ATTACK;
         armorPoints = DEFAULT_ARMOR;
