@@ -1,14 +1,11 @@
 package gameView;
 
-import gameController.ButtonHandler;
-import gameController.Instances;
 import gameController.State;
+import gameModel.HeroAbstract;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import javax.swing.JFrame;
-
-import static gameView.ImageLoader.loadImage;
 
 public class Draw {
     JFrame frame;
@@ -17,35 +14,19 @@ public class Draw {
     BufferStrategy bufferStrategy;
     Graphics2D g;
 
-    private int WIDTH = 640;
-    private int HEIGHT = 480;
+    private int WIDTH;
+    private int HEIGHT;
     private String title= "RPG_GAME_DesignPatterns";
 
-    private int CHARACTER_WIDTH=Instances.player.getWidth();
-    private int CHARACTER_HEIGHT=Instances.player.getHeight();
 
-    public JFrame getFrame() {
-        return frame;
-    }
 
-    public int getCHARACTER_WIDTH() {
-        return CHARACTER_WIDTH;
-    }
 
-    public int getCHARACTER_HEIGHT() {
-        return CHARACTER_HEIGHT;
-    }
 
-    public int getWIDTH() {
-        return WIDTH;
-    }
-
-    public int getHEIGHT() {
-        return HEIGHT;
-    }
-
-    public Draw(){
+    public Draw(int width,int height){
+        this.WIDTH=width;
+        this.HEIGHT=height;
         createDisplay();
+
     }
 
     public Canvas getCanvas() {
@@ -53,6 +34,7 @@ public class Draw {
     }
 
     private void createDisplay(){
+
         frame = new JFrame(title);
         frame.setResizable(false);
         frame.setVisible(true);
@@ -83,17 +65,17 @@ public class Draw {
         g = (Graphics2D) bufferStrategy.getDrawGraphics();
         g.clearRect(0, 0, WIDTH, HEIGHT);//Clearing screen
 
-        //rendering(); //Start drawing
         if (State.getCurrentState() != null) State.getCurrentState().render(g);
 
         g.dispose();
         bufferStrategy.show();
     }
-    protected void rendering(){
 
-        g.setColor(Color.white);
-        //g.fillRect(Instances.player.getX(), Instances.player.getY(), CHARACTER_WIDTH, CHARACTER_HEIGHT);
+    public JFrame getFrame() {
+        return frame;
     }
+
+
 
 }
 

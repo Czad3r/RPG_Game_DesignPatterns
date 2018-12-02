@@ -1,18 +1,24 @@
 package gameModel;
 
+import gameController.Game;
+
 import java.awt.*;
 
 public class Mage extends HeroAbstract {
 
-    private Mage() {
-        super(0,0);
+    private Mage(Game game) {
+        super(0,0,game);
     }
 
-    private Mage(MageBuilder builder) {
-        super(0,0);
+    private Mage(MageBuilder builder,Game game) {
+        super(0,0,game);
         if (builder == null) {
             return;
         }
+        x=builder.x;
+        y=builder.y;
+        width=builder.width;
+        height=builder.height;
         weapon=builder.weapon;
         healthPoints = builder.healthPoints;
         attackPoints = builder.attackPoints;
@@ -39,10 +45,12 @@ public class Mage extends HeroAbstract {
 
     public static class MageBuilder extends Builder {
 
-        public MageBuilder(String name) { super(name); }
+        public MageBuilder(String name,Game game) {
+            super(name,game);
+        }
 
         public Mage build() {
-            return new Mage(this);
+            return new Mage(this,game);
         }
     }
 
