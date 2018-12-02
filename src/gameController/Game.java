@@ -81,8 +81,9 @@ public class Game implements Runnable {
         drawing = new Draw(WIDTH, HEIGHT);
         drawing.getFrame().addKeyListener(buttonHandler);
 
-        gameCamera = new GameCamera(0, 0, this);
         handler=new Handler(this);
+
+        gameCamera = new GameCamera(0, 0, handler);
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);

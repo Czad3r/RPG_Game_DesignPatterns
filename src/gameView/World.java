@@ -1,6 +1,5 @@
 package gameView;
 
-import gameController.Game;
 import gameController.Handler;
 import gameController.Utils;
 import gameView.tiles.Tile;
@@ -10,7 +9,7 @@ import java.awt.*;
 public class World {
     private Handler handler;
 
-    private static int width, height;
+    private int width, height;
     private int startX, startY;
     private int[][] tiles;
 
@@ -62,11 +61,11 @@ public class World {
         }
     }
 
-    public static int getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public static int getHeight() {
+    public int getHeight() {
         return height;
     }
 }

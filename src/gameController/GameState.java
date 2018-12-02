@@ -2,6 +2,7 @@ package gameController;
 
 import gameModel.HeroAbstract;
 import gameModel.Knight;
+import gameView.Assets;
 import gameView.World;
 
 import java.awt.*;
@@ -15,8 +16,10 @@ public class GameState extends State {
         super(handler);
         world = new World("res/worlds/world1.txt", handler);
         handler.setWorld(world);
-        player = new Knight.KnightBuilder("Czader",handler).x(100).y(100).width(32).height(32).build();
-        //game.getGameCamera().move(100, 200);
+        int spawnX=(int)(handler.getWidth()+handler.getGameCamera().getxOffset()/2);
+        int spawnY=(int)(handler.getHeight()+handler.getGameCamera().getyOffset()/2);
+        player = new Knight.KnightBuilder("Czader",handler).x(spawnX).y(spawnY).width(32).height(32).build();
+        handler.getGameCamera().move(100, 200);
     }
 
     @Override

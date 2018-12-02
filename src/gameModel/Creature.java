@@ -37,13 +37,6 @@ public abstract class Creature extends Entity {
     @Override
     public void render(Graphics g) {
         g.drawImage(Assets.player, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
-
-        //Dla celów testowania collision detection
-        g.setColor(Color.red);
-        g.fillRect((int)(x+bounds.x-handler.getGameCamera().getxOffset()),
-                (int)(y+bounds.y-handler.getGameCamera().getyOffset()),
-                bounds.width,
-                bounds.height);
     }
 
 
@@ -113,13 +106,13 @@ public abstract class Creature extends Entity {
         float yOffset = handler.getGameCamera().getyOffset();
 
         //Sekcja X
-        if ((World.getWidth() * Assets.getWidth() - 32)  < this.getX() + 1) // Wartość 32 to szerokosć gracza
+        if ((handler.getWorld().getWidth() * Assets.getWidth() - 32)  < this.getX() + 1) // Wartość 32 to szerokosć gracza
             handler.getButtonHandler().right = false; //Right side
         if ((this.getX() - 1) < 0)
             handler.getButtonHandler().left = false;//Left side
 
        //Sekcja Y
-        if ((World.getHeight() * Assets.getHeight() - 32)  < this.getY() + 1) // Wartość 32 to wysokosc gracza
+        if ((handler.getWorld().getHeight() * Assets.getHeight() - 32)  < this.getY() + 1) // Wartość 32 to wysokosc gracza
             handler.getButtonHandler().down = false;//Down side
         if ((this.getY() - 1) < 0)
             handler.getButtonHandler().up = false; //Up side
