@@ -1,17 +1,18 @@
 package gameModel;
 
 import gameController.Game;
+import gameController.Handler;
 
 import java.awt.*;
 
 public class Mage extends HeroAbstract {
 
-    private Mage(Game game) {
-        super(0,0,game);
+    private Mage(Handler handler) {
+        super(0,0,handler);
     }
 
-    private Mage(MageBuilder builder,Game game) {
-        super(0,0,game);
+    private Mage(MageBuilder builder,Handler handler) {
+        super(0,0,handler);
         if (builder == null) {
             return;
         }
@@ -45,12 +46,12 @@ public class Mage extends HeroAbstract {
 
     public static class MageBuilder extends Builder {
 
-        public MageBuilder(String name,Game game) {
-            super(name,game);
+        public MageBuilder(String name, Handler handler) {
+            super(name,handler);
         }
 
         public Mage build() {
-            return new Mage(this,game);
+            return new Mage(this, handler);
         }
     }
 

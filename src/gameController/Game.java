@@ -1,7 +1,5 @@
 package gameController;
 
-import gameModel.HeroAbstract;
-import gameModel.Knight;
 import gameView.Assets;
 import gameView.Draw;
 import gameView.GameCamera;
@@ -17,18 +15,19 @@ public class Game implements Runnable {
 
     private Draw drawing;
 
+    private Handler handler;
+
     //States
     private State gameState;
     private State menuState;
 
     //Inputs
     private ButtonHandler buttonHandler;
-    ;
 
     private boolean running = false;
 
-    private int WIDTH=640;
-    private int HEIGHT=480;
+    private int WIDTH = 640;
+    private int HEIGHT = 480;
 
     private int fps = 60;
     private double timePerTick = 1000000000 / fps; //Time of one frame
@@ -74,9 +73,6 @@ public class Game implements Runnable {
         drawing.render();
     }
 
-    public ButtonHandler getButtonHandler() {
-        return buttonHandler;
-    }
 
     private void init() {
         Assets.init();
@@ -85,11 +81,11 @@ public class Game implements Runnable {
         drawing = new Draw(WIDTH, HEIGHT);
         drawing.getFrame().addKeyListener(buttonHandler);
 
-
         gameCamera = new GameCamera(0, 0, this);
+        handler=new Handler(this);
 
-        gameState = new GameState(this);
-        menuState = new MenuState(this);
+        gameState = new GameState(handler);
+        menuState = new MenuState(handler);
 
 
         State.setCurrentState(gameState);
@@ -97,6 +93,10 @@ public class Game implements Runnable {
 
     public GameCamera getGameCamera() {
         return gameCamera;
+    }
+
+    public ButtonHandler getButtonHandler() {
+        return buttonHandler;
     }
 
     public Draw getDrawing() {

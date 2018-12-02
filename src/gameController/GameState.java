@@ -11,13 +11,11 @@ public class GameState extends State {
     private World world;
     private HeroAbstract player;
 
-    public GameState(Game game) {
-
-        super(game);
-        player = new Knight.KnightBuilder("Czader",game).x(5).y(5).width(32).height(32).build();
-
-        world = new World("res/worlds/world1.txt", game);
-
+    public GameState(Handler handler) {
+        super(handler);
+        world = new World("res/worlds/world1.txt", handler);
+        handler.setWorld(world);
+        player = new Knight.KnightBuilder("Czader",handler).x(100).y(100).width(32).height(32).build();
         //game.getGameCamera().move(100, 200);
     }
 

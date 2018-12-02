@@ -1,6 +1,6 @@
 package gameModel;
 
-import gameController.Game;
+import gameController.Handler;
 import gameView.Assets;
 import gameView.World;
 
@@ -14,8 +14,8 @@ public abstract class HeroAbstract extends Creature {
     public static final int DEFAULT_MAGIC = 1;
     public static final int DEFAULT_HEALING = 0;
 
-    public HeroAbstract(float x, float y,Game game) {
-        super(x, y,game);
+    public HeroAbstract(float x, float y, Handler handler) {
+        super(x, y,handler);
         magicMultiplier = DEFAULT_MAGIC;
         healingPoints = DEFAULT_HEALING;
     }
@@ -59,54 +59,11 @@ public abstract class HeroAbstract extends Creature {
                 '}';
     }
 
-    @Override
-    public void render(Graphics g) {
-        g.drawImage(Assets.player, (int) (x - game.getGameCamera().getxOffset()), (int) (y - game.getGameCamera().getyOffset()), width, height, null);
-    }
 
-    @Override
-    public void tick() {
-
-        update(); //Checking borders of map, and then moving
-        game.getGameCamera().centerOnEntity(this);
-    }
-
-    public void update() {
-        canMove();
-        move();
-    }
-
-    public void move() {
-        if (game.getButtonHandler().left) {
-            x-=2;
-        }
-        if (game.getButtonHandler().right) {
-            x+=2;
-        }
-        if (game.getButtonHandler().up) {
-            y-=2;
-        }
-        if (game.getButtonHandler().down) {
-            y+=2;
-        }
-    }
-
-    public void canMove() {
-        float xOffSet = game.getGameCamera().getxOffset();
-        float yOffset = game.getGameCamera().getyOffset();
-        if ((World.getWidth() * Assets.getWidth() - 32)  < this.getX() + 1) // Wartość 32 to szerokosć gracza
-            game.getButtonHandler().right = false; //Right side
-        if ((World.getHeight() * Assets.getHeight() - 32)  < this.getY() + 1) // Wartość 32 to wysokosc gracza
-            game.getButtonHandler().down = false;//Down side
-        if ((this.getX() - 1) < 0)
-            game.getButtonHandler().left = false;//Left side
-        if ((this.getY() - 1) < 0)
-            game.getButtonHandler().up = false; //Up side
-    }
 
 
     public static abstract class Builder {
-        Game game;
+        Handler handler;
         float x, y;
         int width, height;
         int magicMultiplier;
@@ -120,9 +77,9 @@ public abstract class HeroAbstract extends Creature {
         WeaponAbstract weapon;
 
 
-        public Builder(String name,Game game) {
+        public Builder(String name,Handler handler) {
             this.name=name;
-            this.game=game;
+            this.handler =handler;
         }
 
         public Builder x(float x) {

@@ -1,15 +1,15 @@
 package gameModel;
 
-import gameController.Game;
+import gameController.Handler;
 
 public class Healer extends HeroAbstract {
 
-    private Healer(Game game) {
-        super(0, 0, game);
+    private Healer(Handler handler) {
+        super(0, 0,handler);
     }
 
-    private Healer(HealerBuilder builder, Game game) {
-        super(0, 0, game);
+    private Healer(HealerBuilder builder, Handler handler) {
+        super(0, 0, handler);
         if (builder == null) return;
         x = builder.x;
         y = builder.y;
@@ -30,12 +30,12 @@ public class Healer extends HeroAbstract {
 
     public static class HealerBuilder extends Builder {
 
-        public HealerBuilder(String name, Game game) {
-            super(name,game);
+        public HealerBuilder(String name, Handler handler) {
+            super(name,handler);
         }
 
         public Healer build() {
-            return new Healer(this,game);
+            return new Healer(this, handler);
         }
     }
 }

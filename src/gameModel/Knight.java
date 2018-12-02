@@ -1,19 +1,16 @@
 package gameModel;
 
-import gameController.Game;
-import gameView.Assets;
-
-import java.awt.*;
+import gameController.Handler;
 
 public class Knight extends HeroAbstract {
 
-    private Knight(Game game) {
-        super(0, 0,game);
+    private Knight(Handler handler) {
+        super(0, 0,handler);
 
     }
 
-    private Knight(KnightBuilder builder,Game game) {
-        super(0, 0,game);
+    private Knight(KnightBuilder builder,Handler handler) {
+        super(0, 0,handler);
         if (builder == null) {
             return;
         }
@@ -37,14 +34,14 @@ public class Knight extends HeroAbstract {
 
     public static class KnightBuilder extends Builder {
 
-        public KnightBuilder(String name,Game game) {
+        public KnightBuilder(String name,Handler handler) {
 
-            super(name,game);
+            super(name,handler);
         }
 
         @Override
         public Knight build() {
-            return new Knight(this,game);
+            return new Knight(this,handler);
         }
     }
 
