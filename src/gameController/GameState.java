@@ -9,25 +9,27 @@ import java.awt.*;
 public class GameState extends State {
 
     private World world;
+    private HeroAbstract player;
 
     public GameState(Game game) {
 
         super(game);
+        player = new Knight.KnightBuilder("Czader",game).x(5).y(5).width(32).height(32).build();
 
-        world=new World("res/worlds/world1.txt");
+        world = new World("res/worlds/world1.txt", game);
 
-        Instances.game.getGameCamera().move(100,200);
+        //game.getGameCamera().move(100, 200);
     }
 
     @Override
-    public void tick(){
+    public void tick() {
         world.tick();
-        Instances.player.tick();
+        player.tick();
     }
 
     @Override
     public void render(Graphics g) {
         world.render(g);
-        Instances.player.render(g);
+        player.render(g);
     }
 }

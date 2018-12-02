@@ -1,15 +1,13 @@
 package gameModel;
 
 import gameController.Game;
-import gameController.Instances;
-
-import javax.swing.*;
 
 public abstract class Creature extends Entity {
     protected int healthPoints;
     protected int attackPoints;
     protected int armorPoints;
     protected int armorPenetrationPoints;
+    protected String name;
 
     public static final int DEFAULT_HEALTH = 10;
     public static final int DEFAULT_ATTACK = 3;
@@ -18,10 +16,10 @@ public abstract class Creature extends Entity {
     public static final int DEFAULT_CREATURE_WIDTH = 32,
                             DEFAULT_CREATURE_HEIGHT = 32;
 
-    protected String name;
 
-    public Creature(float x, float y) {
-        super(Instances.game,x, y,DEFAULT_CREATURE_WIDTH,DEFAULT_CREATURE_HEIGHT);
+
+    public Creature(float x, float y,Game game) {
+        super(game,x, y,DEFAULT_CREATURE_WIDTH,DEFAULT_CREATURE_HEIGHT);
         healthPoints = DEFAULT_HEALTH;
         attackPoints = DEFAULT_ATTACK;
         armorPoints = DEFAULT_ARMOR;
@@ -68,44 +66,5 @@ public abstract class Creature extends Entity {
 
     public void setArmorPenetrationPoints(int armorPenetrationPoints) {
         this.armorPenetrationPoints = armorPenetrationPoints;
-    }
-
-    public static abstract class Builder extends Entity.Builder {
-        int healthPoints;
-        int attackPoints;
-        int armorPoints;
-        int armorPenetrationPoints;
-
-        String name;
-
-        public Builder(String name) {
-            this.name = name;
-        }
-
-        public Builder healthPoints(int hp) {
-            if (hp > 0) healthPoints = hp;
-            else healthPoints = DEFAULT_HEALTH;
-            return this;
-        }
-
-        public Builder attackPoints(int attack) {
-            if (attack > 0) this.attackPoints = attack;
-            else attack = DEFAULT_ATTACK;
-            return this;
-        }
-
-        public Builder armorPoints(int armor) {
-            if (armor > 0) armorPoints = armor;
-            else armorPoints = DEFAULT_ARMOR;
-            return this;
-        }
-
-        public Builder armorPenetrationPoints(int pen) {
-            if (pen > 0) armorPenetrationPoints = pen;
-            else armorPenetrationPoints = DEFAULT_PENETRATION;
-            return this;
-        }
-
-        public abstract Creature build();
     }
 }

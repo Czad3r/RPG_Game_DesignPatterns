@@ -1,19 +1,21 @@
 package gameModel;
 
+import gameController.Game;
+
 public class Healer extends HeroAbstract {
 
-    private Healer() {
-        super(0,0);
+    private Healer(Game game) {
+        super(0, 0, game);
     }
 
-    private Healer(HealerBuilder builder) {
-        super(0,0);
+    private Healer(HealerBuilder builder, Game game) {
+        super(0, 0, game);
         if (builder == null) return;
-        x=builder.x;
-        y=builder.y;
-        width=builder.width;
-        height=builder.height;
-        weapon=builder.weapon;
+        x = builder.x;
+        y = builder.y;
+        width = builder.width;
+        height = builder.height;
+        weapon = builder.weapon;
         healthPoints = builder.healthPoints;
         attackPoints = builder.attackPoints;
         armorPoints = builder.armorPoints;
@@ -23,14 +25,17 @@ public class Healer extends HeroAbstract {
 
     @Override
     public String toString() {
-        return "Healer"+super.toString();
+        return "Healer" + super.toString();
     }
 
-    public static class HealerBuilder extends Builder{
-        public HealerBuilder(String name) { super(name); }
+    public static class HealerBuilder extends Builder {
+
+        public HealerBuilder(String name, Game game) {
+            super(name,game);
+        }
 
         public Healer build() {
-            return new Healer(this);
+            return new Healer(this,game);
         }
     }
 }

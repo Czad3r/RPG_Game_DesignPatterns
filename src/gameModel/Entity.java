@@ -45,36 +45,5 @@ public abstract class Entity {
 
     public abstract void tick();
 
-    public static abstract class Builder {
-        float x,y;
-        int width,height;
 
-        public Builder() { }
-
-        public Builder x(float x) {
-            if (x >= 0) this.x=x;
-            else this.x = 0;
-            return this;
-        }
-
-        public Builder y(float y) {
-            if (y >= 0) this.y=y;
-            else this.y = 0;
-            return this;
-        }
-
-        public Builder width(int width) {
-            if (width > 0) this.width=width;
-            else width= 32;
-            return this;
-        }
-
-        public Builder height(int height) {
-            if (height> 0) this.height=height;
-            else height= 32;
-            return this;
-        }
-
-        public abstract Entity build();
-    }
 }

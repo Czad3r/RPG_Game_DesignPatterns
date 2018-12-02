@@ -1,25 +1,22 @@
 package gameView;
 
 import gameController.Game;
-import gameController.Instances;
 import gameModel.Entity;
 
 public class GameCamera {
 
 private Game game;
-private Draw drawing;
     private float xOffset,yOffset;
 
-    public GameCamera(float xOffset,float yOffset){
+    public GameCamera(float xOffset,float yOffset,Game game){
         this.xOffset=xOffset;
         this.yOffset=yOffset;
-        this.game= Instances.game;
-        this.drawing=Instances.drawing;
+        this.game= game;
     }
 
     public void centerOnEntity(Entity e){
-        xOffset=e.getX()-drawing.getWIDTH() /2 +e.getWidth()/2;
-        yOffset=e.getY()-drawing.getHEIGHT()/2 +e.getHeight()/2;
+        xOffset=e.getX()-game.getWIDTH() /2 +e.getWidth()/2;
+        yOffset=e.getY()-game.getHEIGHT()/2 +e.getHeight()/2;
     }
 
     public void move(float xAmt,float yAmt){
