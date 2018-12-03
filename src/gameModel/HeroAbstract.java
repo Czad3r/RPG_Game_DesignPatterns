@@ -1,10 +1,7 @@
 package gameModel;
 
 import gameController.Handler;
-import gameView.Assets;
-import gameView.World;
 
-import java.awt.*;
 
 public abstract class HeroAbstract extends Creature {
     protected int magicMultiplier;

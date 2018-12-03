@@ -2,6 +2,7 @@ package gameModel;
 
 import gameController.Game;
 import gameController.Handler;
+import gameView.Animation;
 import gameView.Assets;
 import gameView.World;
 import gameView.tiles.Tile;
@@ -14,6 +15,8 @@ public abstract class Creature extends Entity {
     protected int armorPoints;
     protected int armorPenetrationPoints;
     protected String name;
+    protected int lastMoveSide;
+    protected Animation animation;
 
     public static final int DEFAULT_HEALTH = 10;
     public static final int DEFAULT_ATTACK = 3;
@@ -32,11 +35,14 @@ public abstract class Creature extends Entity {
         armorPenetrationPoints = DEFAULT_PENETRATION;
         width = DEFAULT_CREATURE_WIDTH;
         height = DEFAULT_CREATURE_HEIGHT;
+        lastMoveSide=0;
+        animation=new Animation(Assets.player);
     }
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.player, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+            g.drawImage(animation.getAnimation(lastMoveSide), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
+
     }
 
 
@@ -55,15 +61,19 @@ public abstract class Creature extends Entity {
     public void move() {
         if (handler.getButtonHandler().left && canMoveLeft()) {
             x-=2;
+            lastMoveSide=Assets.LEFT;
         }
         if (handler.getButtonHandler().right && canMoveRight()) {
             x+=2;
+            lastMoveSide=Assets.RIGHT;
         }
         if (handler.getButtonHandler().up && canMoveUp()) {
             y-=2;
+            lastMoveSide=Assets.BACK;
         }
         if (handler.getButtonHandler().down && canMoveDown()) {
             y+=2;
+            lastMoveSide=Assets.FRONT;
         }
     }
 
