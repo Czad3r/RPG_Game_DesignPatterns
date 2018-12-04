@@ -1,7 +1,9 @@
 package gameController;
 
+import gameController.Inputs.ButtonHandler;
+import gameController.Inputs.MouseHandler;
 import gameController.States.GameState;
-import gameController.States.MenuState;
+import gameController.States.Menu.MenuState;
 import gameController.States.State;
 import gameView.Assets;
 import gameView.Draw;
@@ -26,6 +28,7 @@ public class Game implements Runnable {
 
     //Inputs
     private ButtonHandler buttonHandler;
+    private MouseHandler mouseHandler;
 
     private boolean running = false;
 
@@ -66,7 +69,10 @@ public class Game implements Runnable {
     }
 
     private void tick() {
-
+        if(getButtonHandler().escape) {
+            getButtonHandler().escape = false;
+            State.setCurrentState(menuState);
+        }
         if (State.getCurrentState() != null) State.getCurrentState().tick();
     }
 
@@ -80,9 +86,15 @@ public class Game implements Runnable {
     private void init() {
         Assets.init();
         buttonHandler = new ButtonHandler();
+        mouseHandler=new MouseHandler();
 
         drawing = new Draw(WIDTH, HEIGHT);
         drawing.getFrame().addKeyListener(buttonHandler);
+        drawing.getCanvas().addKeyListener(buttonHandler);
+        drawing.getFrame().addMouseListener(mouseHandler);
+        drawing.getFrame().addMouseMotionListener(mouseHandler);
+        drawing.getCanvas().addMouseListener(mouseHandler); //Uniknięcie paru problemów
+        drawing.getCanvas().addMouseMotionListener(mouseHandler);
 
         handler=new Handler(this);
 
@@ -92,8 +104,14 @@ public class Game implements Runnable {
         menuState = new MenuState(handler);
 
 
-        State.setCurrentState(gameState);
+        State.setCurrentState(menuState);
     }
+
+    public State getGameState() { return gameState; }
+
+    public State getMenuState() { return menuState; }
+
+    public MouseHandler getMouseHandler() { return mouseHandler; }
 
     public GameCamera getGameCamera() {
         return gameCamera;

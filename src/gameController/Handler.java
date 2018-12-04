@@ -1,5 +1,7 @@
 package gameController;
 
+import gameController.Inputs.ButtonHandler;
+import gameController.Inputs.MouseHandler;
 import gameView.GameCamera;
 import gameView.World;
 
@@ -25,6 +27,11 @@ public class Handler {
 
     public int getHeight() {
         return game.getHEIGHT();
+    }
+
+    //Gettery
+    public MouseHandler getMouseHandler() {
+        return game.getMouseHandler();
     }
 
     public Game getGame() {

@@ -1,11 +1,13 @@
-package gameController;
+package gameController.Inputs;
+
+import gameController.States.State;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class ButtonHandler extends KeyAdapter {
 
-    public boolean left, right, up, down;
+    public boolean left, right, up, down,escape;
 
 
     public void keyPressed(KeyEvent key) {
@@ -22,6 +24,9 @@ public class ButtonHandler extends KeyAdapter {
                 break;
             case KeyEvent.VK_RIGHT:
                 right=true;
+                break;
+            case KeyEvent.VK_ESCAPE:
+                escape=true;
                 break;
         }
     }
