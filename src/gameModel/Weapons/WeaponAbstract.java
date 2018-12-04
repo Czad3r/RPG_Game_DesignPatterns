@@ -1,4 +1,6 @@
-package gameModel;
+package gameModel.Weapons;
+
+import gameModel.Skills.Skill;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package gameModel;
+package gameModel.Skills;
 
 public class MagicAttackSkill extends Skill {
     int attackMultiplier;

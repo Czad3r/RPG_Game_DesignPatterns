@@ -1,7 +1,8 @@
-package gameModel;
+package gameModel.DynamicEntities;
 
 import gameController.Game;
 import gameController.Handler;
+import gameModel.Entity;
 import gameView.Animation;
 import gameView.Assets;
 import gameView.World;
@@ -59,26 +60,25 @@ public abstract class Creature extends Entity {
     }
 
     public void move() {
-        if (handler.getButtonHandler().left && canMoveLeft()) {
+        if (handler.getButtonHandler().left && canMoveLeft() && !checkEntityCollisions(-4,0)) {
             x-=2;
             lastMoveSide=Assets.LEFT;
         }
-        if (handler.getButtonHandler().right && canMoveRight()) {
+        if (handler.getButtonHandler().right && canMoveRight() && !checkEntityCollisions(4,0)){
             x+=2;
             lastMoveSide=Assets.RIGHT;
         }
-        if (handler.getButtonHandler().up && canMoveUp()) {
+        if (handler.getButtonHandler().up && canMoveUp() && !checkEntityCollisions(0,-4)){
             y-=2;
             lastMoveSide=Assets.BACK;
         }
-        if (handler.getButtonHandler().down && canMoveDown()) {
+        if (handler.getButtonHandler().down && canMoveDown() && !checkEntityCollisions(0,4)) {
             y+=2;
             lastMoveSide=Assets.FRONT;
         }
     }
 
-    public boolean canMoveRight()
-    {
+    public boolean canMoveRight() {
         int xBorder=(int)(x+4+bounds.width+bounds.x)/ Tile.TILEWIDTH;
         if(!collisionWithTile(xBorder,(int)(y+bounds.y)/Tile.TILEHEIGHT) &&
             !collisionWithTile(xBorder,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT))
@@ -86,24 +86,21 @@ public abstract class Creature extends Entity {
         return false;
     }
 
-    public boolean canMoveLeft()
-    {
+    public boolean canMoveLeft() {
         int xBorder=(int)(x+bounds.x-4)/ Tile.TILEWIDTH;
         if(!collisionWithTile(xBorder,(int)(y+bounds.y)/Tile.TILEHEIGHT) &&
                 !collisionWithTile(xBorder,(int)(y+bounds.y+bounds.height)/Tile.TILEHEIGHT))
             return true;
         return false;
     }
-    public boolean canMoveUp()
-    {
+    public boolean canMoveUp() {
         int yBorder=(int)(y+bounds.y-4)/ Tile.TILEHEIGHT;
         if(!collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,yBorder) &&
                 !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,yBorder))
             return true;
         return false;
     }
-    public boolean canMoveDown()
-    {
+    public boolean canMoveDown() {
         int yBorder=(int)(y+bounds.height+bounds.y+4)/ Tile.TILEHEIGHT;
         if(!collisionWithTile((int)(x+bounds.x)/Tile.TILEWIDTH,yBorder) &&
                 !collisionWithTile((int)(x+bounds.x+bounds.width)/Tile.TILEWIDTH,yBorder))
@@ -112,9 +109,6 @@ public abstract class Creature extends Entity {
     }
 
     public void canMove() {
-        float xOffSet = handler.getGameCamera().getxOffset();
-        float yOffset = handler.getGameCamera().getyOffset();
-
         //Sekcja X
         if ((handler.getWorld().getWidth() * Assets.getWidth() - 32)  < this.getX() + 1) // Wartość 32 to szerokosć gracza
             handler.getButtonHandler().right = false; //Right side

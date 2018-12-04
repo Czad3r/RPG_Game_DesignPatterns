@@ -1,6 +1,7 @@
-package gameModel;
+package gameModel.DynamicEntities;
 
 import gameController.Handler;
+import gameModel.Weapons.WeaponAbstract;
 
 
 public abstract class HeroAbstract extends Creature {

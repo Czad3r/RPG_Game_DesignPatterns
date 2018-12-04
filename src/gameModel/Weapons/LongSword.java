@@ -1,8 +1,9 @@
-package gameModel;
+package gameModel.Weapons;
 
-import java.util.Arrays;
+import gameModel.Skills.CleaveSkill;
+import gameModel.Skills.Skill;
 
-public class LongSword extends WeaponAbstract{
+public class LongSword extends WeaponAbstract {
 
     private LongSword() {}
 

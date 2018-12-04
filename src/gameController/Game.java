@@ -1,5 +1,8 @@
 package gameController;
 
+import gameController.States.GameState;
+import gameController.States.MenuState;
+import gameController.States.State;
 import gameView.Assets;
 import gameView.Draw;
 import gameView.GameCamera;

@@ -1,4 +1,4 @@
-package gameModel;
+package gameModel.Skills;
 
 public abstract class Skill {
     protected String name;

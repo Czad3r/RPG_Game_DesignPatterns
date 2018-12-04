@@ -1,4 +1,7 @@
-package gameController;
+package gameController.States;
+
+import gameController.Handler;
+import gameController.States.State;
 
 import java.awt.*;
 

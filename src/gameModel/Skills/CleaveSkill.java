@@ -1,4 +1,4 @@
-package gameModel;
+package gameModel.Skills;
 
 public class CleaveSkill extends Skill {
     int chanceToBleed;

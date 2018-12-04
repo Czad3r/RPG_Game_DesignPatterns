@@ -1,4 +1,4 @@
-package gameModel;
+package gameModel.DynamicEntities;
 
 import gameController.Handler;
 

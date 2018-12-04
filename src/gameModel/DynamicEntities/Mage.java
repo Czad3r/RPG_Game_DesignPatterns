@@ -1,6 +1,5 @@
-package gameModel;
+package gameModel.DynamicEntities;
 
-import gameController.Game;
 import gameController.Handler;
 
 import java.awt.*;

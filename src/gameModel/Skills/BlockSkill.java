@@ -1,6 +1,6 @@
-package gameModel;
+package gameModel.Skills;
 
-public class BlockSkill extends Skill{
+public class BlockSkill extends Skill {
     int chanceToBlock;
 
     private BlockSkill(){}

@@ -1,7 +1,6 @@
 package gameView;
 
-import gameController.State;
-import gameModel.HeroAbstract;
+import gameController.States.State;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
