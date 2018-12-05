@@ -20,7 +20,7 @@ public class GameState extends State {
 
         int spawnX=(int)((handler.getWidth()+handler.getGameCamera().getxOffset())/2);
         int spawnY=(int)((handler.getHeight()+handler.getGameCamera().getyOffset())/2);
-        player = new Knight.KnightBuilder("Czader",handler).x(spawnX).y(spawnY).width(32).height(32).build();
+        player = new Knight.KnightBuilder("Czader",handler).x(spawnX).y(spawnY).width(32).height(32).attackPoints(5).build();
 
         entityManager = new EntityManager(handler, player);
 

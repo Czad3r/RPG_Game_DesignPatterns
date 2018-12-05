@@ -1,4 +1,4 @@
-package gameController;
+package gameController.Inputs;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

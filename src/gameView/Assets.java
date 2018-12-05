@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Assets {
     private static final int width = 32, height = 32;
 
-    public static BufferedImage path, doors, tree, grass, arenaDoors, shopSign, bedSign,woodWallWindow,arenaWall,monument;
+    public static BufferedImage path, doors, tree, grass, arenaDoors, shopSign, bedSign,woodWallWindow,arenaWall,monument,attack;
     public static BufferedImage[] player;
     public static BufferedImage[] startButton;
     public static BufferedImage[] createButton;
@@ -19,6 +19,7 @@ public class Assets {
         SpriteSheet buttonSheet=new SpriteSheet(ImageLoader.loadImage("/menu/Start.png"));
         SpriteSheet createbuttonSheet=new SpriteSheet(ImageLoader.loadImage("/menu/Create.png"));
 
+        attack=ImageLoader.loadImage("/textures/attack.png");
         grass = sheet.crop(0, 0, width, height);
         path = sheet.crop(22 * width, 1 * height, width, height);
         doors = sheet.crop(15 * width, 20 * height, width, height);

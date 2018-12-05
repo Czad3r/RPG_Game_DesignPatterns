@@ -1,28 +1,23 @@
 package gameModel.DynamicEntities;
 
-import gameController.Game;
 import gameController.Handler;
-import gameModel.Entity;
+import gameModel.StaticEnities.Entity;
 import gameView.Animation;
 import gameView.Assets;
-import gameView.World;
 import gameView.tiles.Tile;
 
 import java.awt.*;
 
 public abstract class Creature extends Entity {
-    protected int healthPoints;
     protected int attackPoints;
     protected int armorPoints;
-    protected int armorPenetrationPoints;
     protected String name;
     protected int lastMoveSide;
     protected Animation animation;
+    protected boolean attacking=false;
 
-    public static final int DEFAULT_HEALTH = 10;
     public static final int DEFAULT_ATTACK = 3;
     public static final int DEFAULT_ARMOR = 2;
-    public static final int DEFAULT_PENETRATION = 1;
     public static final int DEFAULT_CREATURE_WIDTH = 32,
                             DEFAULT_CREATURE_HEIGHT = 32;
 
@@ -30,10 +25,8 @@ public abstract class Creature extends Entity {
 
     public Creature(float x, float y, Handler handler) {
         super(handler,x, y,DEFAULT_CREATURE_WIDTH,DEFAULT_CREATURE_HEIGHT);
-        healthPoints = DEFAULT_HEALTH;
         attackPoints = DEFAULT_ATTACK;
         armorPoints = DEFAULT_ARMOR;
-        armorPenetrationPoints = DEFAULT_PENETRATION;
         width = DEFAULT_CREATURE_WIDTH;
         height = DEFAULT_CREATURE_HEIGHT;
         lastMoveSide=0;
@@ -42,10 +35,19 @@ public abstract class Creature extends Entity {
 
     @Override
     public void render(Graphics g) {
+        if(attacking){
+            g.drawImage(Assets.attack,(int) (x - handler.getGameCamera().getxOffset())+8, (int) (y - handler.getGameCamera().getyOffset())-16, 16, 16, null);
+            attacking=false;
+        }
             g.drawImage(animation.getAnimation(lastMoveSide), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 
     }
 
+    @Override
+    public void hurt(int lostHP) {
+        lostHP-=armorPoints;
+        super.hurt(lostHP);
+    }
 
     @Override
     public void tick() {
@@ -53,6 +55,8 @@ public abstract class Creature extends Entity {
         update(); //Checking borders of map, and then moving
         handler.getGameCamera().centerOnEntity(this);
     }
+
+
 
     public void update() {
         canMove();
@@ -133,14 +137,6 @@ public abstract class Creature extends Entity {
         this.name = name;
     }
 
-    public int getHealthPoints() {
-        return healthPoints;
-    }
-
-    public void setHealthPoints(int healthPoints) {
-        this.healthPoints = healthPoints;
-    }
-
     public int getAttackPoints() {
         return attackPoints;
     }
@@ -149,19 +145,11 @@ public abstract class Creature extends Entity {
         this.attackPoints = attackPoints;
     }
 
-    public int getArmorPoints() {
-        return armorPoints;
+    public boolean isAttacking() {
+        return attacking;
     }
 
-    public void setArmorPoints(int armorPoints) {
-        this.armorPoints = armorPoints;
-    }
-
-    public int getArmorPenetrationPoints() {
-        return armorPenetrationPoints;
-    }
-
-    public void setArmorPenetrationPoints(int armorPenetrationPoints) {
-        this.armorPenetrationPoints = armorPenetrationPoints;
+    public void setAttacking(boolean attacking) {
+        this.attacking = attacking;
     }
 }

@@ -23,7 +23,6 @@ public class Mage extends HeroAbstract {
         healthPoints = builder.healthPoints;
         attackPoints = builder.attackPoints;
         armorPoints = builder.armorPoints;
-        armorPenetrationPoints = builder.armorPenetrationPoints;
         name = builder.name;
         magicMultiplier = builder.magicMultiplier;
     }

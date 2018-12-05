@@ -1,13 +1,19 @@
 package gameModel.DynamicEntities;
 
 import gameController.Handler;
+import gameModel.StaticEnities.Entity;
 import gameModel.Weapons.WeaponAbstract;
+
+import javax.swing.*;
+import java.awt.*;
 
 
 public abstract class HeroAbstract extends Creature {
     protected int magicMultiplier;
     protected int healingPoints;
     protected WeaponAbstract weapon;
+
+    private long lastAttackTimer,attackCooldown=400,attackTimer=attackCooldown;
 
     public static final int DEFAULT_MAGIC = 1;
     public static final int DEFAULT_HEALING = 0;
@@ -16,6 +22,68 @@ public abstract class HeroAbstract extends Creature {
         super(x, y,handler);
         magicMultiplier = DEFAULT_MAGIC;
         healingPoints = DEFAULT_HEALING;
+    }
+
+    @Override
+    public void die() {
+        System.out.println("You died!");
+    }
+
+    private int attack() {
+        int attack=attackPoints;
+        if(weapon!=null)attack+=weapon.getAttackMultiplier();
+        return attack;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        checkAttacks();
+    }
+
+    public void checkAttacks(){
+        attackTimer+=System.currentTimeMillis() - lastAttackTimer;
+        lastAttackTimer=System.currentTimeMillis();
+        if(attackTimer < attackCooldown)
+            return;
+
+        Rectangle rec=new Rectangle();
+        Rectangle collision=getCollisionBounds(0,0);
+
+        int recSize=20; //Range of attack
+        rec.width=recSize;
+        rec.height=recSize;
+
+        if(handler.getButtonHandler().aUp){
+            rec.x=collision.x+collision.width/2 -recSize/2;
+            rec.y=collision.y-recSize;
+        }
+        else if(handler.getButtonHandler().aDown){
+            rec.x=collision.x+collision.width/2 -recSize/2;
+            rec.y=collision.y+collision.height;
+        }
+        else if(handler.getButtonHandler().aRight){
+            rec.x=collision.x+collision.width;
+            rec.y=collision.y+collision.height/2-recSize/2;
+        }
+        else if(handler.getButtonHandler().aLeft){
+            rec.x=collision.x-recSize;
+            rec.y=collision.y+collision.height/2-recSize/2;
+        }
+        else{
+            return;
+        }
+
+        attackTimer=0;
+
+        for (Entity e:handler.getWorld().getEntityManager().getEntities()) {
+            if(e.equals(this))continue;
+            if(e.getCollisionBounds(0,0).intersects(rec)){
+                setAttacking(true);
+                e.hurt(attack());
+                return;
+            }
+        }
     }
 
     public WeaponAbstract getWeapon() {
@@ -49,7 +117,7 @@ public abstract class HeroAbstract extends Creature {
                 "healthPoints=" + healthPoints +
                 ", attackPoints=" + attackPoints +
                 ", armorPoints=" + armorPoints +
-                ", armorPenetrationPoints=" + armorPenetrationPoints +
+                ", armorPenetrationPoints="  +
                 ", magicMultiplier=" + magicMultiplier +
                 ", healingPoints=" + healingPoints +
                 ", weapon=" + weapon +
@@ -69,7 +137,6 @@ public abstract class HeroAbstract extends Creature {
         int healthPoints;
         int attackPoints;
         int armorPoints;
-        int armorPenetrationPoints;
         String name;
 
         WeaponAbstract weapon;
@@ -104,11 +171,7 @@ public abstract class HeroAbstract extends Creature {
             else armorPoints=5;
             return this;
         }
-        public Builder armorPenetrationPoints(int armorPenetrationPoints) {
-            if(armorPenetrationPoints>0)this.armorPenetrationPoints=armorPenetrationPoints;
-            else armorPenetrationPoints=2;
-            return this;
-        }
+
         public Builder width(int width) {
             if(width>0)this.width = width;
             else this.width=32;

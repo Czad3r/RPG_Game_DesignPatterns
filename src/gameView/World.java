@@ -2,10 +2,7 @@ package gameView;
 
 import gameController.EntityManager;
 import gameController.Handler;
-import gameController.Utils;
-import gameModel.DynamicEntities.HeroAbstract;
-import gameModel.DynamicEntities.Knight;
-import gameModel.DynamicEntities.Mage;
+import gameController.Inputs.Utils;
 import gameModel.StaticEnities.Tree;
 import gameView.tiles.Tile;
 

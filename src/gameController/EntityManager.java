@@ -1,7 +1,7 @@
 package gameController;
 
 import gameModel.DynamicEntities.HeroAbstract;
-import gameModel.Entity;
+import gameModel.StaticEnities.Entity;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,6 +28,7 @@ public class EntityManager {
         for (int i=0;i< entities.size();i++){
             Entity e=entities.get(i);
             e.tick();
+            if(!e.isActive())entities.remove(e);
         }
     }
 

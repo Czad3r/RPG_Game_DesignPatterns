@@ -1,7 +1,7 @@
 package gameView;
 
 import gameController.Handler;
-import gameModel.Entity;
+import gameModel.StaticEnities.Entity;
 import gameView.tiles.Tile;
 
 public class GameCamera {
