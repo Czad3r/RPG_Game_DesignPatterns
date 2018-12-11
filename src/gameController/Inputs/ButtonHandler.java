@@ -1,7 +1,5 @@
 package gameController.Inputs;
 
-import gameController.States.State;
-
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 

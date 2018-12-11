@@ -152,4 +152,12 @@ public abstract class Creature extends Entity {
     public void setAttacking(boolean attacking) {
         this.attacking = attacking;
     }
+
+    public int getArmorPoints() {
+        return armorPoints;
+    }
+
+    public void setArmorPoints(int armorPoints) {
+        this.armorPoints = armorPoints;
+    }
 }

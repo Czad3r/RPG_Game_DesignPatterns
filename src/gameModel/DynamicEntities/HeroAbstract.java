@@ -138,6 +138,7 @@ public abstract class HeroAbstract extends Creature {
         int attackPoints;
         int armorPoints;
         String name;
+        Rectangle bounds;
 
         WeaponAbstract weapon;
 
@@ -153,6 +154,11 @@ public abstract class HeroAbstract extends Creature {
         }
         public Builder y(float y) {
             this.y = y;
+            return this;
+        }
+
+        public Builder bounds(int x,int y,int width,int height) {
+            this.bounds=new Rectangle(x,y,width,height);
             return this;
         }
 
